@@ -1,0 +1,277 @@
+/* ====== PROGRESS BAR ====== */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #1db954;
+  width: 0%;
+  z-index: 999;
+  transition: width 0.2s;
+}
+
+/* ====== GENERAL STYLES ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  font-family: 'Arial', sans-serif;
+  min-height: 100%;
+  background: linear-gradient(135deg, #1db954, #191414);
+  color: #fff;
+  transition: background 0.5s, color 0.5s;
+  scroll-behavior: smooth;
+}
+body.light-mode {
+  background: #f0f0f0;
+  color: #191414;
+}
+
+/* ====== NAVBAR ====== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.navbar.sticky {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: default;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+}
+nav ul li {
+  margin-left: 20px;
+  opacity: 0;
+  animation: fadeNav 0.5s forwards;
+}
+nav ul li a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+nav ul li a:hover {
+  color: #1db954;
+}
+nav ul.show li {
+  animation: fadeNav 0.5s forwards;
+  opacity: 1;
+}
+.mode-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ====== NAV TOGGLE (HAMBURGER) ====== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 20;
+}
+.bar {
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  transition: 0.4s;
+}
+.nav-toggle.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ====== HERO ====== */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 80px;
+  text-align: center;
+  background: url('https://storage.googleapis.com/pr-newsroom-wp/1/2023/07/Spotify-New-Logo.png') no-repeat center/contain;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  transition: background-position 0.3s;
+}
+.hero-content {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+}
+.cta-button {
+  background-color: #1db954;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 20px;
+}
+.cta-button:hover {
+  background-color: #1ed760;
+  transform: scale(1.1);
+}
+
+/* ====== MUSIC PICKER ====== */
+.music-picker {
+  margin-top: 20px;
+  color: inherit;
+}
+.music-picker select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ====== CONTENT SECTIONS ====== */
+.content-section {
+  padding: 60px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+  max-width: 900px;
+  margin: 0 auto 60px;
+}
+.content-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ====== ANIMATED COUNTERS ====== */
+.counter {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* ====== PLAYLIST UI ====== */
+.playlist-ui {
+  display: inline-block;
+  text-align: left;
+  background: rgba(0,0,0,0.3);
+  padding: 10px 15px;
+  border-radius: 8px;
+  user-select: none;
+  max-width: 400px;
+  width: 90%;
+}
+.playlist-ui .track {
+  padding: 8px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ddd;
+  border-bottom: 1px solid #444;
+}
+.playlist-ui .track:hover {
+  background: #1db954;
+  color: #fff;
+}
+.playlist-ui .track.playing {
+  background: #1ed760;
+  color: #000;
+  font-weight: bold;
+}
+
+/* ====== MINI PLAYER ====== */
+.mini-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  gap: 12px;
+  font-size: 0.95rem;
+  z-index: 1000;
+  user-select: none;
+}
+.mini-player button {
+  background: #1db954;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.mini-player button:hover {
+  background: #1ed760;
+}
+.mini-player input[type="range"] {
+  flex: 1;
+  cursor: pointer;
+}
+
+/* ====== FADE NAV ANIMATION ====== */
+@keyframes fadeNav {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 600px) {
+  .nav-toggle {
+    display: flex;
+  }
+  nav ul {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: rgba(0,0,0,0.9);
+    flex-direction: column;
+    width: 200px;
+    padding: 10px;
+    display: none;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  nav ul li {
+    margin: 10px 0;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  nav ul li a {
+    font-size: 1.1rem;
+  }
+  .playlist-ui {
+    max-width: 100%;
+  }
+}
